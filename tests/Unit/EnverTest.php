@@ -2,6 +2,7 @@
 
 namespace CodeBugLab\Enver\Tests\Unit;
 
+use CodeBugLab\Enver\Exceptions\KeyAlreadyExistsException;
 use CodeBugLab\Enver\Line;
 use CodeBugLab\Enver\Facades\Enver;
 use CodeBugLab\Enver\Tests\TestCase;
@@ -31,8 +32,25 @@ class EnverTest extends TestCase
         $this->assertEquals('DB_CONNECTION', $line->getKey());
     }
 
-    public function test_it_returns_success_if_append_key_success()
+    public function test_it_throws_an_exception_if_appended_key_exists()
     {
+        $this->expectException(KeyAlreadyExistsException::class);
+
+        Enver::append("DB_CONNECTION", time());
+    }
+
+    public function test_it_returns_success_if_append_key_is_done()
+    {
+        // manual delete test value first
+        file_put_contents(
+            app()->environmentFilePath(),
+            preg_replace(
+                sprintf("/^FOO=\"%s\"\n/m", env('FOO')),
+                "",
+                file_get_contents(app()->environmentFilePath())
+            )
+        );
+
         $append = Enver::append("FOO", time());
 
         $this->assertTrue($append);

@@ -3,6 +3,8 @@
 namespace CodeBugLab\Enver;
 
 use Illuminate\Support\Env;
+use CodeBugLab\Enver\Facades\EnverLine;
+use CodeBugLab\Enver\Exceptions\KeyAlreadyExistsException;
 
 class Enver extends Env
 {
@@ -53,11 +55,11 @@ class Enver extends Env
      * Get line number for passed key
      *
      * @param string $key
-     * @return int
+     * @return Line|null
      */
     public function locate(string $key)
     {
-        return $this->createNewLine(
+        return $this->createNewLineObject(
             array_filter(
                 preg_split("/\n/", $this->getEnvContent()),
                 function ($line) use ($key) {
@@ -69,12 +71,34 @@ class Enver extends Env
         );
     }
 
-    public function append($key, $default = null)
+    /**
+     * Append new line to .env file
+     *
+     * @param string $key
+     * @param mixed $value
+     * @return boolean
+     * @throws KeyAlreadyExistsException
+     */
+    public function append(string $key, $value)
     {
-        return true;
+        $line = $this->locate($key);
+
+        if (!is_null($line)) {
+            throw new KeyAlreadyExistsException("Key already exists", 1);
+        }
+
+        return EnverLine::setKey($key)
+            ->setValue($value)
+            ->create();
     }
 
-    private function createNewLine(array $matched_line)
+    /**
+     * Create new Line object
+     *
+     * @param array $matched_line
+     * @return Line|null
+     */
+    private function createNewLineObject(array $matched_line)
     {
         $key = key($matched_line);
 

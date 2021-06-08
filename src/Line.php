@@ -29,24 +29,6 @@ class Line
         return $this;
     }
 
-    public function getFullLine()
-    {
-        return $this->fullLine;
-    }
-
-    public function setFullLine(string $fullLine)
-    {
-        $this->fullLine = $fullLine;
-
-        return $this
-            ->setKey(explode("=", $fullLine)[0])
-            ->setValue(
-                $this->enver->get(
-                    $this->getKey()
-                )
-            );
-    }
-
     public function getKey()
     {
         return $this->key;
@@ -69,5 +51,38 @@ class Line
         $this->value = $value;
 
         return $this;
+    }
+
+    public function getFullLine()
+    {
+        if (!$this->fullLine && strlen($this->getKey()) > 0) {
+            $this->setFullLine(
+                sprintf('%s="%s"', $this->getKey(), $this->getValue())
+            );
+        }
+
+        return $this->fullLine;
+    }
+
+    public function setFullLine(string $fullLine)
+    {
+        $this->fullLine = $fullLine;
+
+        return $this
+            ->setKey(explode("=", $fullLine)[0])
+            ->setValue(
+                $this->enver->get(
+                    $this->getKey()
+                )
+            );
+    }
+
+    public function create()
+    {
+        return is_int(file_put_contents(
+            $this->enver->getPath(),
+            $this->getFullLine() . "\n",
+            FILE_APPEND | LOCK_EX
+        ));
     }
 }

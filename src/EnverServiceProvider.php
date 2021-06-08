@@ -11,6 +11,10 @@ class EnverServiceProvider extends ServiceProvider
         $this->app->bind('enver', function ($app) {
             return new Enver();
         });
+
+        $this->app->bind('enverLine', function ($app) {
+            return new Line(app('enver'));
+        });
     }
 
     public function boot()

@@ -32,7 +32,8 @@
         "CodeBugLab\\Enver\\EnverServiceProvider"
       ],
       "aliases": {
-        "Enver": "CodeBugLab\\Enver\\Facades\\Enver"
+        "Enver": "CodeBugLab\\Enver\\Facades\\Enver",
+        "EnverLine": "CodeBugLab\\Enver\\Facades\\EnverLine"
       }
     }
   }
