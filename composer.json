@@ -1,0 +1,39 @@
+{
+  "name": "codebuglab/enver",
+  "description": "Create and update .env file pacakge",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Amro Khaled",
+      "email": "i@akhaled.com"
+    }
+  ],
+  "require": {
+    "php": "^7.0",
+    "illuminate/support": "^6.0|^7.0|^8.0"
+  },
+  "require-dev": {
+    "orchestra/testbench": "^4.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "CodeBugLab\\Enver\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "CodeBugLab\\Enver\\Tests\\": "tests"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "CodeBugLab\\Enver\\EnverServiceProvider"
+      ],
+      "aliases": {
+        "Enver": "CodeBugLab\\Enver\\Facades\\Enver"
+      }
+    }
+  }
+}
