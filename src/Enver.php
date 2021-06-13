@@ -4,6 +4,7 @@ namespace CodeBugLab\Enver;
 
 use Illuminate\Support\Env;
 use CodeBugLab\Enver\Facades\EnverLine;
+use CodeBugLab\Enver\Exceptions\KeyNotFoundException;
 use CodeBugLab\Enver\Exceptions\KeyAlreadyExistsException;
 
 class Enver extends Env
@@ -90,6 +91,24 @@ class Enver extends Env
         return EnverLine::setKey($key)
             ->setValue($value)
             ->create();
+    }
+
+    /**
+     * Replace key with given value
+     *
+     * @param string $key
+     * @param mixed $value
+     * @return boolean
+     */
+    public function replace(string $key, $value)
+    {
+        $location = $this->locate($key);
+
+        if (is_null($location)) {
+            throw new KeyNotFoundException;
+        }
+
+        return false;
     }
 
     /**

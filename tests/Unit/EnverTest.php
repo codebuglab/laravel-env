@@ -2,10 +2,11 @@
 
 namespace CodeBugLab\Enver\Tests\Unit;
 
-use CodeBugLab\Enver\Exceptions\KeyAlreadyExistsException;
 use CodeBugLab\Enver\Line;
 use CodeBugLab\Enver\Facades\Enver;
 use CodeBugLab\Enver\Tests\TestCase;
+use CodeBugLab\Enver\Exceptions\KeyNotFoundException;
+use CodeBugLab\Enver\Exceptions\KeyAlreadyExistsException;
 
 class EnverTest extends TestCase
 {
@@ -54,5 +55,19 @@ class EnverTest extends TestCase
         $append = Enver::append("FOO", time());
 
         $this->assertTrue($append);
+    }
+
+    public function test_it_throws_key_not_found_exception_when_replacing()
+    {
+        $this->expectException(KeyNotFoundException::class);
+
+        Enver::replace("KEY_NOT_EXISTS", time());
+    }
+
+    public function test_it_replaces_given_text()
+    {
+        $replaced = Enver::replace("FOO", time());
+
+        $this->assertTrue($replaced);
     }
 }
