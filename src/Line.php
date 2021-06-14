@@ -79,14 +79,16 @@ class Line
     public function setFullLine(string $fullLine)
     {
         $this->fullLine = $fullLine;
+        $exploded = explode("=", $fullLine);
+
+        $value = $exploded[1];
+        if (preg_match('/^(["\']).*\1$/m', $value)) {
+            $value = substr($value, 1, -1);
+        }
 
         return $this
-            ->setKey(explode("=", $fullLine)[0])
-            ->setValue(
-                $this->enver->get(
-                    $this->getKey()
-                )
-            );
+            ->setKey($exploded[0])
+            ->setValue($value);
     }
 
     /**

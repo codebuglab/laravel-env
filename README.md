@@ -8,7 +8,6 @@ Laravel small package to locate, append and update `.env` keys.
   - [replace](#replace)
   - [delete](#delete)
   - [locate](#locate)
-- [Operations on `Line` object](#operations-on-line-object)
   - [reset](#reset)
 
 ## Available methods
@@ -39,18 +38,16 @@ Enver::delete('FOO');
 
 ### locate
 
+Returns a `CodeBugLab\Enver\Line` object
+
 ```php
 $line = Enver::locate('APP_KEY');
 ```
 
-## Operations on `Line` object
-
-Line object represents for single line in env file. You can use the following methods:
-
 ### reset
 
-```php
-$line = Enver::locate('APP_KEY');
+Set to empty value
 
-$line->reset(); // set to empty value
+```php
+Enver::reset('APP_KEY'); // APP_KEY=""
 ```

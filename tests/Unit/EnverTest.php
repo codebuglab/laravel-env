@@ -102,9 +102,9 @@ class EnverTest extends TestCase
         $this->deleteFooKey();
         Enver::append("FOO", time());
 
-        $line = Enver::locate("FOO")->reset();
+        Enver::reset("FOO");
 
-        $this->assertEmpty($line->getValue());
+        $this->assertEmpty(Enver::get("FOO"));
 
         $this->deleteFooKey();
     }

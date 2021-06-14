@@ -88,8 +88,8 @@ class Enver extends Env
             throw new KeyAlreadyExistsException;
         }
 
-        return EnverLine::setKey($key)
-            ->setValue($value)
+        return (new Line($this))
+            ->setFullLine(sprintf('%s="%s"', $key, $value))
             ->create();
     }
 
@@ -130,6 +130,24 @@ class Enver extends Env
     }
 
     /**
+     * Reset a value for a given key
+     *
+     * @param string $key
+     * @return boolean
+     * @throws KeyNotFoundException
+     */
+    public function reset(string $key)
+    {
+        $line = $this->locate($key, true);
+
+        if (!$line instanceof Line) {
+            throw new KeyNotFoundException();
+        }
+
+        return $line->reset();
+    }
+
+    /**
      * Create new Line object
      *
      * @param array $matched_line
@@ -145,6 +163,6 @@ class Enver extends Env
 
         return (new Line($this))
             ->setLineNumber($key + 1)
-            ->setFullLine(current($matched_line));
+            ->setFullLine($matched_line[$key]);
     }
 }
