@@ -112,6 +112,24 @@ class Enver extends Env
     }
 
     /**
+     * Delete line start with given key
+     *
+     * @param string $key
+     * @return boolean
+     * @throws KeyNotFoundException
+     */
+    public function delete(string $key)
+    {
+        $line = $this->locate($key, true);
+
+        if (!$line instanceof Line) {
+            throw new KeyNotFoundException();
+        }
+
+        return $line->delete();
+    }
+
+    /**
      * Create new Line object
      *
      * @param array $matched_line

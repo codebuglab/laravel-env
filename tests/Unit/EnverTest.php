@@ -75,4 +75,14 @@ class EnverTest extends TestCase
 
         $this->assertTrue($replaced);
     }
+
+    public function test_it_deletes_a_key()
+    {
+        $this->deleteFooKey();
+
+        Enver::append("FOO", time());
+        $deleted = Enver::delete("FOO");
+
+        $this->assertTrue($deleted);
+    }
 }

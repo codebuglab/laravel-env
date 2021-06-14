@@ -53,6 +53,11 @@ class Line
         return $this;
     }
 
+    /**
+     * Get full line value
+     *
+     * @return string
+     */
     public function getFullLine()
     {
         if (strlen($this->getKey()) > 0) {
@@ -64,6 +69,12 @@ class Line
         return $this->fullLine;
     }
 
+    /**
+     * Set full line form key and value
+     *
+     * @param string $fullLine
+     * @return self
+     */
     public function setFullLine(string $fullLine)
     {
         $this->fullLine = $fullLine;
@@ -77,6 +88,11 @@ class Line
             );
     }
 
+    /**
+     * Creates a new line
+     *
+     * @return boolean
+     */
     public function create()
     {
         $appended_position = file_put_contents(
@@ -90,13 +106,18 @@ class Line
         return is_int($appended_position);
     }
 
+    /**
+     * Update a line
+     *
+     * @return boolean
+     */
     public function update()
     {
         $replaced_position = file_put_contents(
             $this->enver->getPath(),
             preg_replace(
-                sprintf("/%s.*/", $this->getKey()),
-                $this->getFullLine(),
+                sprintf("/%s.*\n/", $this->getKey()),
+                $this->getFullLine() . "\n",
                 file_get_contents($this->enver->getPath())
             )
         );
@@ -104,5 +125,36 @@ class Line
         Artisan::call('config:clear');
 
         return is_int($replaced_position);
+    }
+
+    /**
+     * Delete a line
+     *
+     * @return boolean
+     */
+    public function delete()
+    {
+        $deleted_position = file_put_contents(
+            $this->enver->getPath(),
+            preg_replace(
+                sprintf("/%s.*\n/", $this->getKey()),
+                "",
+                file_get_contents($this->enver->getPath())
+            )
+        );
+
+        Artisan::call('config:clear');
+
+        return is_int($deleted_position);
+    }
+
+    /**
+     * Reset a value
+     *
+     * @return boolean
+     */
+    public function reset()
+    {
+        return $this->setValue(null)->update();
     }
 }
