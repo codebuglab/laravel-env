@@ -2,7 +2,7 @@
 
 namespace CodeBugLab\Enver;
 
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Artisan;
 
 class Line
 {
@@ -55,7 +55,7 @@ class Line
 
     public function getFullLine()
     {
-        if (!$this->fullLine && strlen($this->getKey()) > 0) {
+        if (strlen($this->getKey()) > 0) {
             $this->setFullLine(
                 sprintf('%s="%s"', $this->getKey(), $this->getValue())
             );
@@ -79,10 +79,30 @@ class Line
 
     public function create()
     {
-        return is_int(file_put_contents(
+        $appended_position = file_put_contents(
             $this->enver->getPath(),
             $this->getFullLine() . "\n",
             FILE_APPEND | LOCK_EX
-        ));
+        );
+
+        Artisan::call('config:clear');
+
+        return is_int($appended_position);
+    }
+
+    public function update()
+    {
+        $replaced_position = file_put_contents(
+            $this->enver->getPath(),
+            preg_replace(
+                sprintf("/%s.*/", $this->getKey()),
+                $this->getFullLine(),
+                file_get_contents($this->enver->getPath())
+            )
+        );
+
+        Artisan::call('config:clear');
+
+        return is_int($replaced_position);
     }
 }

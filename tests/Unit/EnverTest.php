@@ -10,6 +10,18 @@ use CodeBugLab\Enver\Exceptions\KeyAlreadyExistsException;
 
 class EnverTest extends TestCase
 {
+    private function deleteFooKey()
+    {
+        file_put_contents(
+            app()->environmentFilePath(),
+            preg_replace(
+                "/FOO.*\n/",
+                "",
+                file_get_contents(app()->environmentFilePath())
+            )
+        );
+    }
+
     public function test_it_reads_a_value_from_env_file()
     {
         $app_key = Enver::get("APP_KEY");
@@ -29,7 +41,7 @@ class EnverTest extends TestCase
         $line = Enver::locate("DB_CONNECTION");
 
         $this->assertInstanceOf(Line::class, $line);
-        $this->assertEquals(1, $line->getLineNumber());
+        $this->assertEquals(2, $line->getLineNumber());
         $this->assertEquals('DB_CONNECTION', $line->getKey());
     }
 
@@ -42,19 +54,12 @@ class EnverTest extends TestCase
 
     public function test_it_returns_success_if_append_key_is_done()
     {
-        // manual delete test value first
-        file_put_contents(
-            app()->environmentFilePath(),
-            preg_replace(
-                sprintf("/^FOO=\"%s\"\n/m", env('FOO')),
-                "",
-                file_get_contents(app()->environmentFilePath())
-            )
-        );
+        $this->deleteFooKey();
 
         $append = Enver::append("FOO", time());
 
         $this->assertTrue($append);
+        $this->deleteFooKey();
     }
 
     public function test_it_throws_key_not_found_exception_when_replacing()
@@ -66,7 +71,7 @@ class EnverTest extends TestCase
 
     public function test_it_replaces_given_text()
     {
-        $replaced = Enver::replace("FOO", time());
+        $replaced = Enver::replace("DB_CONNECTION", time());
 
         $this->assertTrue($replaced);
     }

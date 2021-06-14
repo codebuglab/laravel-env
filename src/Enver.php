@@ -58,11 +58,11 @@ class Enver extends Env
      * @param string $key
      * @return Line|null
      */
-    public function locate(string $key)
+    public function locate(string $key, bool $forceUpdate = false)
     {
         return $this->createNewLineObject(
             array_filter(
-                preg_split("/\n/", $this->getEnvContent()),
+                preg_split("/\n/", $this->getEnvContent($forceUpdate)),
                 function ($line) use ($key) {
                     preg_match(sprintf("/^%s/m", $key), $line, $key_exist);
 
@@ -82,10 +82,10 @@ class Enver extends Env
      */
     public function append(string $key, $value)
     {
-        $line = $this->locate($key);
+        $line = $this->locate($key, true);
 
-        if (!is_null($line)) {
-            throw new KeyAlreadyExistsException("Key already exists", 1);
+        if ($line instanceof Line) {
+            throw new KeyAlreadyExistsException;
         }
 
         return EnverLine::setKey($key)
@@ -102,13 +102,13 @@ class Enver extends Env
      */
     public function replace(string $key, $value)
     {
-        $location = $this->locate($key);
+        $line = $this->locate($key, true);
 
-        if (is_null($location)) {
+        if (!$line instanceof Line) {
             throw new KeyNotFoundException;
         }
 
-        return false;
+        return $line->setValue($value)->update();
     }
 
     /**
@@ -126,7 +126,7 @@ class Enver extends Env
         }
 
         return (new Line($this))
-            ->setLineNumber($key)
+            ->setLineNumber($key + 1)
             ->setFullLine(current($matched_line));
     }
 }

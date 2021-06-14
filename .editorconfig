@@ -10,3 +10,6 @@ trim_trailing_whitespace = true
 
 [*.{js,css,scss,json,md}]
 indent_size = 2
+
+[*.env]
+insert_final_newline = false

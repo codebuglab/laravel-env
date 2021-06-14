@@ -28,16 +28,6 @@ Enver::append('LOG_CHANNEL', 'daily');
 Enver::replace('APP_KEY', 'another key');
 ```
 
-<!--
-
-or
-
-```php
-Enver::get('APP_KEY')->replace('another key');
-```
-
--->
-
 ### locate
 
 ```php
