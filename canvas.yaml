@@ -1,0 +1,27 @@
+preset: package
+
+namespace: CodeBugLab\Enver
+user-auth-provider: App\User
+
+paths:
+  src: src
+  resource: resources
+
+factory:
+  path: database/factories
+
+migration:
+  path: database/migrations
+  prefix: ''
+
+console:
+  namespace: CodeBugLab\Enver\Console
+
+model:
+  namespace: CodeBugLab\Enver
+
+provider:
+  namespace: CodeBugLab\Enver\Providers
+
+testing:
+  namespace: CodeBugLab\Enver\Tests

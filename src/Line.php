@@ -2,7 +2,8 @@
 
 namespace CodeBugLab\Enver;
 
-use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Event;
+use CodeBugLab\Enver\Events\EnvFileChangedEvent;
 
 class Line
 {
@@ -101,7 +102,7 @@ class Line
             FILE_APPEND | LOCK_EX
         );
 
-        Artisan::call('config:clear');
+        Event::dispatch(new EnvFileChangedEvent($this));
 
         return is_int($appended_position);
     }
@@ -122,7 +123,7 @@ class Line
             )
         );
 
-        Artisan::call('config:clear');
+        Event::dispatch(new EnvFileChangedEvent($this));
 
         return is_int($replaced_position);
     }
@@ -143,7 +144,7 @@ class Line
             )
         );
 
-        Artisan::call('config:clear');
+        Event::dispatch(new EnvFileChangedEvent($this));
 
         return is_int($deleted_position);
     }

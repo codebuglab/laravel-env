@@ -5,6 +5,8 @@ namespace CodeBugLab\Enver\Tests\Unit;
 use CodeBugLab\Enver\Line;
 use CodeBugLab\Enver\Facades\Enver;
 use CodeBugLab\Enver\Tests\TestCase;
+use Illuminate\Support\Facades\Event;
+use CodeBugLab\Enver\Events\EnvFileChangedEvent;
 use CodeBugLab\Enver\Exceptions\KeyNotFoundException;
 use CodeBugLab\Enver\Exceptions\KeyAlreadyExistsException;
 
@@ -56,9 +58,13 @@ class EnverTest extends TestCase
     {
         $this->deleteFooKey();
 
+        Event::fake();
+
         $append = Enver::append("FOO", time());
 
         $this->assertTrue($append);
+        Event::assertDispatched(EnvFileChangedEvent::class);
+
         $this->deleteFooKey();
     }
 
@@ -71,18 +77,28 @@ class EnverTest extends TestCase
 
     public function test_it_replaces_given_text()
     {
+        Event::fake();
         $replaced = Enver::replace("DB_CONNECTION", time());
 
         $this->assertTrue($replaced);
+        Event::assertDispatched(EnvFileChangedEvent::class);
     }
 
     public function test_it_deletes_a_key()
     {
         $this->deleteFooKey();
 
+        Event::fake();
         Enver::append("FOO", time());
+
         $deleted = Enver::delete("FOO");
 
         $this->assertTrue($deleted);
+        Event::assertDispatched(EnvFileChangedEvent::class);
+    }
+
+    public function test_it_resets_a_value()
+    {
+        $this->assertTrue(true);
     }
 }
