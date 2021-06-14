@@ -58,7 +58,7 @@ class Enver extends Env
      * @param string $key
      * @return Line|null
      */
-    public function locate(string $key, bool $forceUpdate = false)
+    public function locate(string $key, bool $forceUpdate = true)
     {
         return $this->createNewLineObject(
             array_filter(

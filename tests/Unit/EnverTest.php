@@ -97,8 +97,15 @@ class EnverTest extends TestCase
         Event::assertDispatched(EnvFileChangedEvent::class);
     }
 
-    public function test_it_resets_a_value()
+    public function test_it_resets_a_value_for_a_line()
     {
-        $this->assertTrue(true);
+        $this->deleteFooKey();
+        Enver::append("FOO", time());
+
+        $line = Enver::locate("FOO")->reset();
+
+        $this->assertEmpty($line->getValue());
+
+        $this->deleteFooKey();
     }
 }

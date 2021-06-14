@@ -152,10 +152,12 @@ class Line
     /**
      * Reset a value
      *
-     * @return boolean
+     * @return self
      */
     public function reset()
     {
-        return $this->setValue(null)->update();
+        $this->setValue(null)->update();
+
+        return $this;
     }
 }
