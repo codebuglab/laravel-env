@@ -1,6 +1,6 @@
 <?php
 
-namespace CodeBugLab\Enver\Exceptions;
+namespace CodeBugLab\LaravelEnv\Exceptions;
 
 use Exception;
 

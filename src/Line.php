@@ -1,21 +1,21 @@
 <?php
 
-namespace CodeBugLab\Enver;
+namespace CodeBugLab\LaravelEnv;
 
 use Illuminate\Support\Facades\Event;
-use CodeBugLab\Enver\Events\EnvFileChangedEvent;
+use CodeBugLab\LaravelEnv\Events\EnvFileChangedEvent;
 
 class Line
 {
-    protected $enver;
+    protected $LaravelEnv;
     protected $lineNumber;
     protected $fullLine;
     protected $key;
     protected $value;
 
-    function __construct(Enver $enver)
+    function __construct(LaravelEnv $LaravelEnv)
     {
-        $this->enver = $enver;
+        $this->LaravelEnv = $LaravelEnv;
     }
 
     public function getLineNumber()
@@ -99,7 +99,7 @@ class Line
     public function create()
     {
         $appended_position = file_put_contents(
-            $this->enver->getPath(),
+            $this->LaravelEnv->getPath(),
             $this->getFullLine() . "\n",
             FILE_APPEND | LOCK_EX
         );
@@ -117,11 +117,11 @@ class Line
     public function update()
     {
         $replaced_position = file_put_contents(
-            $this->enver->getPath(),
+            $this->LaravelEnv->getPath(),
             preg_replace(
                 sprintf("/%s.*\n/", $this->getKey()),
                 $this->getFullLine() . "\n",
-                file_get_contents($this->enver->getPath())
+                file_get_contents($this->LaravelEnv->getPath())
             )
         );
 
@@ -138,11 +138,11 @@ class Line
     public function delete()
     {
         $deleted_position = file_put_contents(
-            $this->enver->getPath(),
+            $this->LaravelEnv->getPath(),
             preg_replace(
                 sprintf("/%s.*\n/", $this->getKey()),
                 "",
-                file_get_contents($this->enver->getPath())
+                file_get_contents($this->LaravelEnv->getPath())
             )
         );
 

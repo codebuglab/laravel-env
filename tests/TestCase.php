@@ -1,8 +1,8 @@
 <?php
 
-namespace CodeBugLab\Enver\Tests;
+namespace CodeBugLab\LaravelEnv\Tests;
 
-use CodeBugLab\Enver\EnverServiceProvider;
+use CodeBugLab\LaravelEnv\LaravelEnvServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
 
@@ -11,7 +11,7 @@ class TestCase extends BaseTestCase
     protected function getPackageProviders($app)
     {
         return [
-            EnverServiceProvider::class,
+            LaravelEnvServiceProvider::class,
         ];
     }
 

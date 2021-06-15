@@ -1,8 +1,8 @@
 <?php
 
-namespace CodeBugLab\Enver\Events;
+namespace CodeBugLab\LaravelEnv\Events;
 
-use CodeBugLab\Enver\Line;
+use CodeBugLab\LaravelEnv\Line;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;

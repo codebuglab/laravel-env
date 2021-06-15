@@ -1,5 +1,5 @@
 {
-  "name": "codebuglab/enver",
+  "name": "codebuglab/laravel-env",
   "description": "Create and update .env file pacakge",
   "type": "library",
   "license": "MIT",
@@ -19,22 +19,22 @@
   },
   "autoload": {
     "psr-4": {
-      "CodeBugLab\\Enver\\": "src"
+      "CodeBugLab\\LaravelEnv\\": "src"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "CodeBugLab\\Enver\\Tests\\": "tests"
+      "CodeBugLab\\LaravelEnv\\Tests\\": "tests"
     }
   },
   "extra": {
     "laravel": {
       "providers": [
-        "CodeBugLab\\Enver\\EnverServiceProvider"
+        "CodeBugLab\\LaravelEnv\\LaravelEnvServiceProvider"
       ],
       "aliases": {
-        "Enver": "CodeBugLab\\Enver\\Facades\\Enver",
-        "EnverLine": "CodeBugLab\\Enver\\Facades\\EnverLine"
+        "LaravelEnv": "CodeBugLab\\LaravelEnv\\Facades\\LaravelEnv",
+        "LaravelEnvLine": "CodeBugLab\\LaravelEnv\\Facades\\LaravelEnvLine"
       }
     }
   }

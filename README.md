@@ -17,33 +17,33 @@ Laravel small package to locate, append and update `.env` keys.
 ### get
 
 ```php
-Enver::get('APP_KEY', 'default');
+LaravelEnv::get('APP_KEY', 'default');
 ```
 
 ### append
 
 ```php
-Enver::append('LOG_CHANNEL', 'daily');
+LaravelEnv::append('LOG_CHANNEL', 'daily');
 ```
 
 ### replace
 
 ```php
-Enver::replace('APP_KEY', 'another key');
+LaravelEnv::replace('APP_KEY', 'another key');
 ```
 
 ### delete
 
 ```php
-Enver::delete('FOO');
+LaravelEnv::delete('FOO');
 ```
 
 ### locate
 
-Returns a `CodeBugLab\Enver\Line` object
+Returns a `CodeBugLab\LaravelEnv\Line` object
 
 ```php
-$line = Enver::locate('APP_KEY');
+$line = LaravelEnv::locate('APP_KEY');
 ```
 
 ### reset
@@ -51,5 +51,5 @@ $line = Enver::locate('APP_KEY');
 Set to empty value
 
 ```php
-Enver::reset('APP_KEY'); // APP_KEY=""
+LaravelEnv::reset('APP_KEY'); // APP_KEY=""
 ```

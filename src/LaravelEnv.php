@@ -1,13 +1,13 @@
 <?php
 
-namespace CodeBugLab\Enver;
+namespace CodeBugLab\LaravelEnv;
 
 use Illuminate\Support\Env;
-use CodeBugLab\Enver\Facades\EnverLine;
-use CodeBugLab\Enver\Exceptions\KeyNotFoundException;
-use CodeBugLab\Enver\Exceptions\KeyAlreadyExistsException;
+use CodeBugLab\LaravelEnv\Facades\LaravelEnvLine;
+use CodeBugLab\LaravelEnv\Exceptions\KeyNotFoundException;
+use CodeBugLab\LaravelEnv\Exceptions\KeyAlreadyExistsException;
 
-class Enver extends Env
+class LaravelEnv extends Env
 {
     protected $envContent;
 

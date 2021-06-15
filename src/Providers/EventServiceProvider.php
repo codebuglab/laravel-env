@@ -1,9 +1,9 @@
 <?php
 
-namespace CodeBugLab\Enver\Providers;
+namespace CodeBugLab\LaravelEnv\Providers;
 
-use CodeBugLab\Enver\Listeners\EnvFileChanged;
-use CodeBugLab\Enver\Events\EnvFileChangedEvent;
+use CodeBugLab\LaravelEnv\Listeners\EnvFileChanged;
+use CodeBugLab\LaravelEnv\Events\EnvFileChangedEvent;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider

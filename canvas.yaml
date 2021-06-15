@@ -1,6 +1,6 @@
 preset: package
 
-namespace: CodeBugLab\Enver
+namespace: CodeBugLab\LaravelEnv
 user-auth-provider: App\User
 
 paths:
@@ -15,13 +15,13 @@ migration:
   prefix: ''
 
 console:
-  namespace: CodeBugLab\Enver\Console
+  namespace: CodeBugLab\LaravelEnv\Console
 
 model:
-  namespace: CodeBugLab\Enver
+  namespace: CodeBugLab\LaravelEnv
 
 provider:
-  namespace: CodeBugLab\Enver\Providers
+  namespace: CodeBugLab\LaravelEnv\Providers
 
 testing:
-  namespace: CodeBugLab\Enver\Tests
+  namespace: CodeBugLab\LaravelEnv\Tests

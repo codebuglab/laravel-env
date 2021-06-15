@@ -1,9 +1,9 @@
 <?php
 
-namespace CodeBugLab\Enver\Listeners;
+namespace CodeBugLab\LaravelEnv\Listeners;
 
 use Illuminate\Support\Facades\Artisan;
-use CodeBugLab\Enver\Events\EnvFileChangedEvent;
+use CodeBugLab\LaravelEnv\Events\EnvFileChangedEvent;
 
 class EnvFileChanged
 {

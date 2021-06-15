@@ -1,16 +1,16 @@
 <?php
 
-namespace CodeBugLab\Enver\Tests\Unit;
+namespace CodeBugLab\LaravelEnv\Tests\Unit;
 
-use CodeBugLab\Enver\Line;
-use CodeBugLab\Enver\Facades\Enver;
-use CodeBugLab\Enver\Tests\TestCase;
+use CodeBugLab\LaravelEnv\Line;
+use CodeBugLab\LaravelEnv\Facades\LaravelEnv;
+use CodeBugLab\LaravelEnv\Tests\TestCase;
 use Illuminate\Support\Facades\Event;
-use CodeBugLab\Enver\Events\EnvFileChangedEvent;
-use CodeBugLab\Enver\Exceptions\KeyNotFoundException;
-use CodeBugLab\Enver\Exceptions\KeyAlreadyExistsException;
+use CodeBugLab\LaravelEnv\Events\EnvFileChangedEvent;
+use CodeBugLab\LaravelEnv\Exceptions\KeyNotFoundException;
+use CodeBugLab\LaravelEnv\Exceptions\KeyAlreadyExistsException;
 
-class EnverTest extends TestCase
+class LaravelEnvTest extends TestCase
 {
     private function deleteFooKey()
     {
@@ -26,21 +26,21 @@ class EnverTest extends TestCase
 
     public function test_it_reads_a_value_from_env_file()
     {
-        $app_key = Enver::get("APP_KEY");
+        $app_key = LaravelEnv::get("APP_KEY");
 
         $this->assertEquals($app_key, "base64:2fl+Ktvkfl+Fuz4Qp/A75G2RTiWVA/ZoKZvp6fiiM10=");
     }
 
     public function test_it_gets_null_for_line_number_if_key_not_found()
     {
-        $line = Enver::locate("KEY_NOT_EXISTS");
+        $line = LaravelEnv::locate("KEY_NOT_EXISTS");
 
         $this->assertNull($line);
     }
 
     public function test_it_gets_line_number_when_key_passed()
     {
-        $line = Enver::locate("DB_CONNECTION");
+        $line = LaravelEnv::locate("DB_CONNECTION");
 
         $this->assertInstanceOf(Line::class, $line);
         $this->assertEquals(2, $line->getLineNumber());
@@ -51,7 +51,7 @@ class EnverTest extends TestCase
     {
         $this->expectException(KeyAlreadyExistsException::class);
 
-        Enver::append("DB_CONNECTION", time());
+        LaravelEnv::append("DB_CONNECTION", time());
     }
 
     public function test_it_returns_success_if_append_key_is_done()
@@ -60,7 +60,7 @@ class EnverTest extends TestCase
 
         Event::fake();
 
-        $append = Enver::append("FOO", time());
+        $append = LaravelEnv::append("FOO", time());
 
         $this->assertTrue($append);
         Event::assertDispatched(EnvFileChangedEvent::class);
@@ -72,13 +72,13 @@ class EnverTest extends TestCase
     {
         $this->expectException(KeyNotFoundException::class);
 
-        Enver::replace("KEY_NOT_EXISTS", time());
+        LaravelEnv::replace("KEY_NOT_EXISTS", time());
     }
 
     public function test_it_replaces_given_text()
     {
         Event::fake();
-        $replaced = Enver::replace("DB_CONNECTION", time());
+        $replaced = LaravelEnv::replace("DB_CONNECTION", time());
 
         $this->assertTrue($replaced);
         Event::assertDispatched(EnvFileChangedEvent::class);
@@ -89,9 +89,9 @@ class EnverTest extends TestCase
         $this->deleteFooKey();
 
         Event::fake();
-        Enver::append("FOO", time());
+        LaravelEnv::append("FOO", time());
 
-        $deleted = Enver::delete("FOO");
+        $deleted = LaravelEnv::delete("FOO");
 
         $this->assertTrue($deleted);
         Event::assertDispatched(EnvFileChangedEvent::class);
@@ -100,11 +100,11 @@ class EnverTest extends TestCase
     public function test_it_resets_a_value_for_a_line()
     {
         $this->deleteFooKey();
-        Enver::append("FOO", time());
+        LaravelEnv::append("FOO", time());
 
-        Enver::reset("FOO");
+        LaravelEnv::reset("FOO");
 
-        $this->assertEmpty(Enver::get("FOO"));
+        $this->assertEmpty(LaravelEnv::get("FOO"));
 
         $this->deleteFooKey();
     }
