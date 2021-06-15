@@ -1,13 +1,13 @@
 <?php
 
-namespace CodeBugLab\LaravelEnv\Facades;
+namespace CodeBugLab\Env\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class LaravelEnvLine extends Facade
+class Env extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'LaravelEnvLine';
+        return 'env';
     }
 }

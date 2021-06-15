@@ -4,7 +4,7 @@ Laravel small package to locate, append and update `.env` keys.
 
 ![Laravel env](banner.png)
 
-## Warning <!-- omit in toc -->
+## Disclaimer <!-- omit in toc -->
 
 **TO BE ABLE TO UPDATE `.env` FILE THROUGH BROWSER YOU MAY NEED TO CHANGE `.env` FILE PERMISSIONS TO _755_. THIS WILL MAKE YOUR FILE WRITABLE VIA BROWSER.**
 
@@ -26,33 +26,33 @@ Laravel small package to locate, append and update `.env` keys.
 ### get
 
 ```php
-LaravelEnv::get('APP_KEY', 'default');
+Env::get('APP_KEY', 'default');
 ```
 
 ### append
 
 ```php
-LaravelEnv::append('LOG_CHANNEL', 'daily');
+Env::append('LOG_CHANNEL', 'daily');
 ```
 
 ### replace
 
 ```php
-LaravelEnv::replace('APP_KEY', 'another key');
+Env::replace('APP_KEY', 'another key');
 ```
 
 ### delete
 
 ```php
-LaravelEnv::delete('FOO');
+Env::delete('FOO');
 ```
 
 ### locate
 
-Returns a `CodeBugLab\LaravelEnv\Line` object
+Returns a `CodeBugLab\Env\Line` object
 
 ```php
-$line = LaravelEnv::locate('APP_KEY');
+$line = Env::locate('APP_KEY');
 ```
 
 ### reset
@@ -60,5 +60,5 @@ $line = LaravelEnv::locate('APP_KEY');
 Set to empty value
 
 ```php
-LaravelEnv::reset('APP_KEY'); // APP_KEY=""
+Env::reset('APP_KEY'); // APP_KEY=""
 ```

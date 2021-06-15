@@ -19,22 +19,22 @@
   },
   "autoload": {
     "psr-4": {
-      "CodeBugLab\\LaravelEnv\\": "src"
+      "CodeBugLab\\Env\\": "src"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "CodeBugLab\\LaravelEnv\\Tests\\": "tests"
+      "CodeBugLab\\Env\\Tests\\": "tests"
     }
   },
   "extra": {
     "laravel": {
       "providers": [
-        "CodeBugLab\\LaravelEnv\\LaravelEnvServiceProvider"
+        "CodeBugLab\\Env\\EnvServiceProvider"
       ],
       "aliases": {
-        "LaravelEnv": "CodeBugLab\\LaravelEnv\\Facades\\LaravelEnv",
-        "LaravelEnvLine": "CodeBugLab\\LaravelEnv\\Facades\\LaravelEnvLine"
+        "Env": "CodeBugLab\\Env\\Facades\\Env",
+        "EnvLine": "CodeBugLab\\Env\\Facades\\EnvLine"
       }
     }
   }
