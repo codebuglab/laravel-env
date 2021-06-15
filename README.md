@@ -26,25 +26,25 @@ Laravel small package to locate, append and update `.env` keys.
 ### get
 
 ```php
-Env::get('APP_KEY', 'default');
+\CodeBugLab\Env::get('APP_KEY', 'default');
 ```
 
 ### append
 
 ```php
-Env::append('LOG_CHANNEL', 'daily');
+\CodeBugLab\Env::append('LOG_CHANNEL', 'daily');
 ```
 
 ### replace
 
 ```php
-Env::replace('APP_KEY', 'another key');
+\CodeBugLab\Env::replace('APP_KEY', 'another key');
 ```
 
 ### delete
 
 ```php
-Env::delete('FOO');
+\CodeBugLab\Env::delete('FOO');
 ```
 
 ### locate
@@ -52,7 +52,7 @@ Env::delete('FOO');
 Returns a `CodeBugLab\Env\Line` object
 
 ```php
-$line = Env::locate('APP_KEY');
+$line = \CodeBugLab\Env::locate('APP_KEY');
 ```
 
 ### reset
@@ -60,5 +60,5 @@ $line = Env::locate('APP_KEY');
 Set to empty value
 
 ```php
-Env::reset('APP_KEY'); // APP_KEY=""
+\CodeBugLab\Env::reset('APP_KEY'); // APP_KEY=""
 ```
