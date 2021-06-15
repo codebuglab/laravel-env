@@ -1,6 +1,8 @@
-# Enver <!-- omit in toc -->
+# Laravel Env <!-- omit in toc -->
 
 Laravel small package to locate, append and update `.env` keys.
+
+![Laravel env](banner.png)
 
 - [Available methods](#available-methods)
   - [get](#get)
