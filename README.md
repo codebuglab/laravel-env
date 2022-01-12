@@ -12,7 +12,8 @@ Laravel small package to locate, append and update `.env` keys.
 
 
 ## Table of contents <!-- omit in toc -->
-
+- [Setup](#setup)
+    - [Installation](#installation)
 - [Available methods](#available-methods)
   - [get](#get)
   - [append](#append)
@@ -20,6 +21,15 @@ Laravel small package to locate, append and update `.env` keys.
   - [delete](#delete)
   - [locate](#locate)
   - [reset](#reset)
+
+## Setup
+### Installation
+
+To install this package through composer run the following command in the terminal
+
+```bash
+composer require codebuglab/laravel-env
+```
 
 ## Available methods
 
